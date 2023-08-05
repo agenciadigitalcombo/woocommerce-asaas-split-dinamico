@@ -1,0 +1,39 @@
+.custom-meta-box {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.custom-meta-tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.custom-meta-tabs li {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.custom-meta-tabs li.active {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+}
+
+.custom-meta-content .custom-meta-tab {
+    display: none;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 5px 5px 5px;
+}
+
+.custom-meta-content .custom-meta-tab.active {
+    display: block;
+}
