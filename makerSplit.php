@@ -41,7 +41,7 @@ function makerSplit($order_id)
     return $split_prod;
 }
 
-add_filters("woocommerce_asaas_payment_data", function ($payment_data, $wc_order) {
+add_filter("woocommerce_asaas_payment_data", function ($payment_data, $wc_order) {
     $payment_data['split'] = makerSplit($wc_order->get_id());
     return $payment_data;
 });
