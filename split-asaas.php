@@ -7,7 +7,5 @@ Author: Seu Nome
 */
 
 
-require __DIR__ . "/Asaas.php";
-// require __DIR__ . "/user.php";
 require __DIR__ . "/product.php";
 require __DIR__ . "/makerSplit.php";
