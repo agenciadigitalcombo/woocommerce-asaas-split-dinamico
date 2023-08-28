@@ -3,7 +3,7 @@
 add_action('woocommerce_after_order_notes', 'campo_com_opcao_selecionada_do_produto_checkout');
 
 function campo_com_opcao_selecionada_do_produto_checkout($checkout) {
-    // Obtém o carrinho
+    // Obtém o carrinho 1
     $cart = WC()->cart;
 
     // Verifica se há itens no carrinho
