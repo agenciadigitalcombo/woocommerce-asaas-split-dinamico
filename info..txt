@@ -1,4 +1,0 @@
-
-Modificar o plugin assa /gatway/ colocar nas 3 opções de pagamento
-
-$payment_data['split'] = makerSplit($order_id);

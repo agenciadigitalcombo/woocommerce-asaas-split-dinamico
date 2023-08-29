@@ -119,6 +119,25 @@ function custom_registration_fields_validation($errors, $sanitized_user_login, $
     $is_walletI = $_POST['custom_wallet_id'] ?? '';
     if(strlen($is_walletI) < 30 ) {
 
+        $campos_obrigatorios = [
+            "cus_tipo_conta",
+            "cus_tipo_empresa",
+            "custom_nascimento",
+            "custom_nome",
+            "custom_CPF",
+            "custom_CNPJ",
+            "custom_mail",
+            "custom_phone",
+            "custom_zip_code",
+            "custom_address",
+            "custom_address_number",
+            "custom_bairro",
+        ];
+
+        foreach($campos_obrigatorios as $name_campo_obrigatorio) {
+            if(empty($_POST[$name_campo_obrigatorio])) return $errors;
+        }
+
         $cus_tipo_conta = sanitize_text_field($_POST['cus_tipo_conta']);
         $cus_tipo_empresa = sanitize_text_field($_POST['cus_tipo_empresa']);
         $custom_nascimento = sanitize_text_field($_POST['custom_nascimento']);
