@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Split Asaas
-Description: Adiciona campos personalizados na tela de cadastro de novo usuário.
-Version: 1.0.0
-Author: Seu Nome
+Description: Adiciona função de split para o ASAAS de forma dinâmica pelo produto
+Version: 1.0.1
+Author: Digital Combo
 */
 
 
