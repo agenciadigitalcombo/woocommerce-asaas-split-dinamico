@@ -57,8 +57,8 @@ function adicionar_custom_meta_box($user)
                     <div class="custom-meta-tab<?php if ($j === 1) echo ' active'; ?>">
                         <label for="custom_type_<?php echo $type ?>_<?php echo $j; ?>">Tipo:</label> <br>
                         <select id="custom_type_<?php echo $type ?>_<?php echo $j; ?>" name="custom_type_<?php echo $type ?>_<?php echo $j; ?>">
-                            <option value="porcentagem" <?php echo ${'custom_type_' . $type . '_' . $j} == "porcentagem" ? "SELECTED" : ""; ?>>Porcentagem</option>
-                            <option value="valor_fixo" <?php echo ${'custom_type_' . $type . '_' . $j} == "valor_fixo" ? "SELECTED" : ""; ?>>Valor Fixo</option>
+                            <option value="percentualValue" <?php echo ${'custom_type_' . $type . '_' . $j} == "percentualValue" ? "SELECTED" : ""; ?>>Porcentagem</option>
+                            <option value="fixedValue" <?php echo ${'custom_type_' . $type . '_' . $j} == "fixedValue" ? "SELECTED" : ""; ?>>Valor Fixo</option>
                         </select>
 
                         <br> <br>
