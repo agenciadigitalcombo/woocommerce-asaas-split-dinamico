@@ -1,0 +1,71 @@
+
+
+POST https://vini.digitalcombo.com.br/asaas-webhook
+content-type: application/json
+
+{
+  "event": "PAYMENT_RECEIVED",
+  "payment": {
+    "object": "payment",
+    "id": "pay_0415617338505059",
+    "dateCreated": "2023-08-30",
+    "customer": "cus_000005416198",
+    "paymentLink": null,
+    "value": 23,
+    "netValue": 21.01,
+    "originalValue": null,
+    "interestValue": null,
+    "description": "Pedido #24",
+    "billingType": "PIX",
+    "confirmedDate": "2023-08-30",
+    "pixTransaction": "5d3cbd0a-7431-4420-85a8-e04053732566",
+    "pixQrCodeId": "d764aaa8-9a32-483b-a18a-b2ef837dfa82",
+    "status": "RECEIVED",
+    "dueDate": "2023-09-02",
+    "originalDueDate": "2023-09-02",
+    "paymentDate": "2023-08-30",
+    "clientPaymentDate": "2023-08-30",
+    "installmentNumber": null,
+    "invoiceUrl": "https://sandbox.asaas.com/i/0415617338505059",
+    "invoiceNumber": "03898290",
+    "externalReference": "24",
+    "deleted": false,
+    "anticipated": false,
+    "anticipable": false,
+    "creditDate": "2023-08-30",
+    "estimatedCreditDate": "2023-08-30",
+    "transactionReceiptUrl": "https://sandbox.asaas.com/comprovantes/8543783673405863",
+    "nossoNumero": null,
+    "bankSlipUrl": null,
+    "lastInvoiceViewedDate": null,
+    "lastBankSlipViewedDate": null,
+    "discount": {
+      "value": 0,
+      "limitDate": null,
+      "dueDateLimitDays": 0,
+      "type": "FIXED"
+    },
+    "fine": {
+      "value": 0,
+      "type": "FIXED"
+    },
+    "interest": {
+      "value": 0,
+      "type": "PERCENTAGE"
+    },
+    "split": [
+      {
+        "id": "4f9985d8-6b79-44f8-8a99-aceadfc51de8",
+        "walletId": "188f7168-06f9-423b-85a3-905b9b277463",
+        "fixedValue": null,
+        "percentualValue": 10,
+        "totalValue": 2.1,
+        "refusalReason": null,
+        "status": "DONE"
+      }
+    ],
+    "postalService": false,
+    "custody": null,
+    "refunds": null
+  }
+}

@@ -71,13 +71,63 @@ function register_wallet(
         "province" => $province,
         "postalCode" => clear_number($postalCode),
     ];
-    if($personType != "FISICA") {
+    if ($personType != "FISICA") {
         $payload["companyType"] = $companyType;
-    }else {
+    } else {
         $payload["birthDate"] = $birthDate;
     }
     $token = get_token();
     $get_endpoint = get_endpoint();
     $resAsa = post_asaas('/accounts', $payload, $get_endpoint, $token);
     return $resAsa;
+}
+
+function GetAsaas(string $path, array $payload, string $key): array
+{
+    $param = http_build_query($payload);
+    $full_path = "{$path}?{$param}";
+    $defaults = [
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL            => $full_path,
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type:application/json',
+            "access_token: {$key}"
+        ]
+    ];
+    $con = curl_init();
+    curl_setopt_array($con, $defaults);
+    $ex = curl_exec($con);
+    $info = curl_getinfo($con);
+    curl_close($con);
+    return json_decode($ex, true);
+}
+
+function BalanceAsaas($key)
+{
+    $base = get_endpoint();
+    $response = GetAsaas("{$base}/finance/balance", [], $key);
+    return $response['balance'] ?? 0;
+}
+
+function GetWalletID()
+{
+    $base = get_endpoint();
+    $key = get_token();
+    $response = GetAsaas("{$base}/wallets", [], $key);
+    return $response['data']['id'] ?? 0;
+}
+
+function TransfeAsaas(
+    $value,
+    $vendedor_wallet_id,
+    $loja_wallet_id
+) {
+    $get_endpoint = get_endpoint();
+    $path = "/transfers";
+    $payload = [
+        "value" => $value,
+        "walletId" => $loja_wallet_id,
+    ];
+    $token = $vendedor_wallet_id;
+    post_asaas($path, $payload, $get_endpoint, $token);
 }

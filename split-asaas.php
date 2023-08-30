@@ -12,6 +12,7 @@ require __DIR__ . "/includes/create-account-asaas.php";
 require __DIR__ . "/includes/taxa-entrega-plugin.php";
 require __DIR__ . "/includes/product.php";
 require __DIR__ . "/includes/makerSplit.php";
+require __DIR__ . "/includes/taxa-alter-status.php";
 
 add_action('admin_enqueue_scripts', function () {
     wp_enqueue_script('split_dinamico_js', plugin_dir_url(__FILE__) . 'assets/js/main.js');
