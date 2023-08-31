@@ -6,6 +6,7 @@ Version: 1.0.0
 Author: Split Dinamico
 */
 
+require __DIR__ . "/includes/whats.php";
 require __DIR__ . "/includes/Asaas.php";
 require __DIR__ . "/includes/custom-user-profile.php";
 require __DIR__ . "/includes/create-account-asaas.php";

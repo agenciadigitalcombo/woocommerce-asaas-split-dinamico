@@ -19,7 +19,7 @@ function minha_funcao_de_acao_quando_processando($order_id)
     $saldo_minimo = 16;
 
     if ($balance < $saldo_minimo) {
-        // send message
+        SendWhats('82999776698', "saldo atual insuficiente {$balance}");
     }
 
     if ($saldo_minimo >= $taxa) {
