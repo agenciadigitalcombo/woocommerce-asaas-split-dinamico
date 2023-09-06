@@ -7,21 +7,23 @@ function minha_funcao_de_acao_quando_processando($order_id)
     $wc_order = $order->get_items();
     $id_prod = array_values($wc_order)[0]->get_product_id();
 
-    $vendedor_id = get_post_meta($id_prod, '_opcao_selecionada', true);
+    $vendedor_id = get_post_meta($id_prod, '_wcfm_product_author', true);
+   
 
     $vendedor_wallet_id = get_user_meta(intval($vendedor_id), 'custom_wallet_id', true);
     $vendedor_api_key = get_user_meta(intval($vendedor_id), 'asaas_api_key', true);
     $taxa = get_user_meta(intval($vendedor_id), 'taxa_entrega', true);
     $custom_phone = get_user_meta(intval($vendedor_id), 'custom_phone', true);
     $custom_nome = get_user_meta(intval($vendedor_id), 'custom_nome', true);
+    $phone_loja = "82999776698";
 
-    $loja_wallet_id = GetWalletID();
+    $loja_wallet_id = get_user_meta(1, 'custom_wallet_id', true);
+
 
     $saldo = BalanceAsaas($vendedor_api_key);
     $saldo_baixo = 35;
     $saldo_print = number_format($saldo, 2, '.', ',');
 
-    $phone_loja = "82999776698";
 
     if ($saldo <= $saldo_baixo) {
         SendWhats($custom_phone, "
@@ -51,11 +53,12 @@ Loja {$custom_nome}, está sem Saldo
     }
 
     if ($saldo >= $taxa) {
-        TransfeAsaas(
+        $res = TransfeAsaas(
             $taxa,
-            $vendedor_wallet_id,
+            $vendedor_api_key,
             $loja_wallet_id
         );
+        var_dump($res);
     }
 }
 

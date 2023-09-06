@@ -240,6 +240,11 @@ function custom_user_update($user_id)
     if (isset($_POST['custom_wallet_id'])) {
         update_user_meta($user_id, 'custom_wallet_id', sanitize_text_field($_POST['custom_wallet_id']));
     }
+
+    if (isset($_POST['asaas_api_key'])) {
+        add_user_meta($user_id, 'asaas_api_key', sanitize_text_field($_POST['asaas_api_key']));
+    }
+
     $loop = [
         'cus_tipo_conta',
         'cus_tipo_empresa',

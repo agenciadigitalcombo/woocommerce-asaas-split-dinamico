@@ -129,5 +129,5 @@ function TransfeAsaas(
         "walletId" => $loja_wallet_id,
     ];
     $token = $vendedor_wallet_id;
-    post_asaas($path, $payload, $get_endpoint, $token);
+    return post_asaas($path, $payload, $get_endpoint, $token);
 }
