@@ -23,6 +23,13 @@ function adicionar_custom_meta_box($user)
         'Divisão 3'
     );
 
+    $defaults_percentes = [
+        'pix' => [94, 6, 0],
+        'card' => [97, 3, 0],
+        'boleto' => [97, 3, 0],
+    ];
+
+
     $ID = $user->ID;
     foreach (['pix', 'card', 'boleto'] as $i => $type) {
         for ($j = 1; $j <= 3; $j++) {
@@ -31,8 +38,17 @@ function adicionar_custom_meta_box($user)
                 'custom_value_' . $type . '_' . $j,
                 'custom_user_' . $type . '_' . $j,
             ];
-            foreach ($names as $name_var) {
-                @$$name_var = $_POST[$name_var] ?? esc_attr(get_user_meta($user->ID, $name_var, true)) ?? '';
+            foreach ($names as $index => $name_var) {
+                @$$name_var = $_POST[$name_var] ?? esc_attr(get_user_meta($user->ID, $name_var, true)) ?? null;
+                if ($index == 1) {
+                    $$name_var = !empty($$name_var) ? $$name_var : $defaults_percentes[$type][$j - 1];
+                }
+                if ($index == 2 && $j == 1) {
+                    $$name_var = !empty($$name_var) ? $$name_var : $_REQUEST['user_id'];
+                }
+                if ($index == 2 && $j == 2) {
+                    $$name_var = 1; // ID da plataforma
+                }
             }
         }
     }

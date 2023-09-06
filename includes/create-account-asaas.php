@@ -45,7 +45,7 @@ function custom_add_user_field($user)
                 </select>
             </td>
         </tr>
-        <tr class="js-nascimento" hidden>
+        <tr class="js-nascimento">
             <th><label>Data de Nascimento</label></th>
             <td>
                 <input type="date" name="custom_nascimento" value="<?php echo $custom_nascimento ?>" class="regular-text" />
@@ -57,7 +57,7 @@ function custom_add_user_field($user)
                 <input type="text" name="custom_nome" value="<?php echo $custom_nome ?>" class="regular-text" />
             </td>
         </tr>
-        <tr class="js-cpf" hidden>
+        <tr class="js-cpf">
             <th><label>CPF</label></th>
             <td>
                 <input type="text" name="custom_CPF" value="<?php echo $custom_CPF ?>" class="regular-text" />
@@ -134,9 +134,9 @@ function custom_registration_fields_validation($errors, $sanitized_user_login, $
             "custom_bairro",
         ];
 
-        foreach($campos_obrigatorios as $name_campo_obrigatorio) {
-            if(empty($_POST[$name_campo_obrigatorio])) return $errors;
-        }
+        // foreach($campos_obrigatorios as $name_campo_obrigatorio) {
+        //     if(empty($_POST[$name_campo_obrigatorio])) return $errors;
+        // }
 
         $cus_tipo_conta = sanitize_text_field($_POST['cus_tipo_conta']);
         $cus_tipo_empresa = sanitize_text_field($_POST['cus_tipo_empresa']);
@@ -177,6 +177,7 @@ function custom_registration_fields_validation($errors, $sanitized_user_login, $
         if( empty($custom_wallet_id_res_asaas["errors"]) ) {
             $_POST['walletId'] = $custom_wallet_id_res_asaas['walletId'];
             $_POST['custom_wallet_id'] = $_POST['walletId'] ;
+            $_POST['asaas_api_key'] = $custom_wallet_id_res_asaas['apiKey'] ;
         }
 
     }else {
@@ -206,6 +207,10 @@ function custom_user_register($user_id)
     if (isset($_POST['custom_wallet_id'])) {
         add_user_meta($user_id, 'custom_wallet_id', $_POST['walletId']);
     }
+    
+    if (isset($_POST['asaas_api_key'])) {
+        add_user_meta($user_id, 'asaas_api_key', $_POST['asaas_api_key']);
+    }
 
     $loop = [
         'cus_tipo_conta',
@@ -234,6 +239,25 @@ function custom_user_update($user_id)
 {
     if (isset($_POST['custom_wallet_id'])) {
         update_user_meta($user_id, 'custom_wallet_id', sanitize_text_field($_POST['custom_wallet_id']));
+    }
+    $loop = [
+        'cus_tipo_conta',
+        'cus_tipo_empresa',
+        'custom_nascimento',
+        'custom_nome',
+        'custom_CPF',
+        'custom_CNPJ',
+        'custom_mail',
+        'custom_phone',
+        'custom_zip_code',
+        'custom_address',
+        'custom_address_number',
+        'custom_bairro',
+    ];
+    foreach($loop as $el) {
+        if (isset($_POST[$el])) {
+            update_user_meta($user_id, $el, sanitize_text_field($_POST[$el]));
+        }
     }
 }
 add_action('profile_update', 'custom_user_update');

@@ -25,11 +25,10 @@ function renderizar_metabox_produto($post)
             $users_with_account[] = $u;
         }
     }
-    $opcao_selecionada = get_post_meta($post->ID, '_opcao_selecionada', true);
-
+    $opcao_selecionada = get_post_meta($post->ID, '_wcfm_product_author', true);
     echo '
     <label for="user_select">Selecionar Usuário:</label> <br>
-    <select name="opcao_selecionada" id="opcao_selecionada">
+    <select name="opcao_selecionada" id="opcao_selecionada" disabled>
         <option value="" ' . selected($opcao_selecionada, '', false) . '>Selecione um usuário</option>';
 
     foreach ($users_with_account as $user) {
