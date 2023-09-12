@@ -9,6 +9,7 @@ Author: Split Dinamico
 require __DIR__ . "/includes/whats.php";
 require __DIR__ . "/includes/Asaas.php";
 require __DIR__ . "/includes/custom-user-profile.php";
+require __DIR__ . "/includes/api.php";
 require __DIR__ . "/includes/create-account-asaas.php";
 require __DIR__ . "/includes/taxa-entrega-plugin.php";
 require __DIR__ . "/includes/product.php";

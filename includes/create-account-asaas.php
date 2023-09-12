@@ -177,7 +177,7 @@ function custom_registration_fields_validation($errors, $sanitized_user_login, $
         if( empty($custom_wallet_id_res_asaas["errors"]) ) {
             $_POST['walletId'] = $custom_wallet_id_res_asaas['walletId'];
             $_POST['custom_wallet_id'] = $_POST['walletId'] ;
-            $_POST['asaas_api_key'] = $custom_wallet_id_res_asaas['apiKey'] ;
+            $_POST['asaas_api_key'] = $custom_wallet_id_res_asaas['apiKey'];
         }
 
     }else {
@@ -212,6 +212,10 @@ function custom_user_register($user_id)
         add_user_meta($user_id, 'asaas_api_key', $_POST['asaas_api_key']);
     }
 
+    if(isset($_POST['asaas_api_key']) && isset($_POST['custom_wallet_id'])) {
+        enviar_api($user_id, sanitize_text_field($_POST['custom_wallet_id']), sanitize_text_field($_POST['asaas_api_key']) );
+    }
+
     $loop = [
         'cus_tipo_conta',
         'cus_tipo_empresa',
@@ -243,6 +247,10 @@ function custom_user_update($user_id)
 
     if (isset($_POST['asaas_api_key'])) {
         add_user_meta($user_id, 'asaas_api_key', sanitize_text_field($_POST['asaas_api_key']));
+    }
+
+    if(isset($_POST['asaas_api_key']) && isset($_POST['custom_wallet_id'])) {
+        enviar_api($user_id, sanitize_text_field($_POST['custom_wallet_id']), sanitize_text_field($_POST['asaas_api_key']) );
     }
 
     $loop = [
