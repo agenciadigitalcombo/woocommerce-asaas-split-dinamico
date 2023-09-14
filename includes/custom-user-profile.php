@@ -29,7 +29,6 @@ function adicionar_custom_meta_box($user)
         'boleto' => [97, 3, 0],
     ];
 
-
     $ID = $user->ID;
     foreach (['pix', 'card', 'boleto'] as $i => $type) {
         for ($j = 1; $j <= 3; $j++) {
@@ -44,10 +43,10 @@ function adicionar_custom_meta_box($user)
                     $$name_var = !empty($$name_var) ? $$name_var : $defaults_percentes[$type][$j - 1];
                 }
                 if ($index == 2 && $j == 1) {
-                    $$name_var = !empty($$name_var) ? $$name_var : $_REQUEST['user_id'];
+                    @$$name_var = !empty($$name_var) ? $$name_var : $_REQUEST['user_id'];
                 }
                 if ($index == 2 && $j == 2) {
-                    $$name_var = 1; // ID da plataforma
+                    $$name_var = 10; // ID da plataforma
                 }
             }
         }

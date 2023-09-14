@@ -16,6 +16,14 @@ function custom_add_user_field($user)
     @$custom_address = $_POST['custom_address'] ?? esc_attr(get_user_meta($user->ID, 'custom_address', true)) ?? '';
     @$custom_address_number = esc_attr(get_user_meta($user->ID, 'custom_address_number', true)) ?? $_REQUEST['custom_address_number'] ?? '';
     @$custom_bairro = $_POST['custom_bairro'] ?? esc_attr(get_user_meta($user->ID, 'custom_bairro', true)) ?? '';
+
+    @$account = $_POST['account'] ?? esc_attr(get_user_meta($user->ID, 'account', true)) ?? '';
+    @$accountDigit = $_POST['accountDigit'] ?? esc_attr(get_user_meta($user->ID, 'accountDigit', true)) ?? '';
+    @$accountName = $_POST['accountName'] ?? esc_attr(get_user_meta($user->ID, 'accountName', true)) ?? '';
+    @$agency = $_POST['agency'] ?? esc_attr(get_user_meta($user->ID, 'agency', true)) ?? '';
+    @$bank = $_POST['bank'] ?? esc_attr(get_user_meta($user->ID, 'bank', true)) ?? '';
+    @$bankAccountType = $_POST['bankAccountType'] ?? esc_attr(get_user_meta($user->ID, 'bankAccountType', true)) ?? '';
+
 ?>
     <h2>Informações Adicionais Asaas</h2>
     <table class="form-table">
@@ -92,7 +100,7 @@ function custom_add_user_field($user)
             <td>
                 <input type="text" name="custom_address" value="<?php echo $custom_address ?>" class="regular-text" />
             </td>
-        </tr> 
+        </tr>
         <tr>
             <th><label>Numero</label></th>
             <td>
@@ -107,6 +115,66 @@ function custom_add_user_field($user)
         </tr>
 
     </table>
+
+    <h2>Informações Bancaria</h2>
+    <table class="form-table">
+        <tr>
+            <th><label>Conta</label></th>
+            <td>
+                <input type="text" name="account" value="<?php echo $account ?>" class="regular-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label>Digito Conta</label></th>
+            <td>
+                <input type="text" name="accountDigit" value="<?php echo $accountDigit ?>" class="regular-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label>Nome Conta</label></th>
+            <td>
+                <input type="text" name="accountName" value="<?php echo $accountName ?>" class="regular-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label>Agencia</label></th>
+            <td>
+                <input type="text" name="agency" value="<?php echo $agency ?>" class="regular-text" />
+            </td>
+        </tr>
+        <tr>
+            <th><label>Banco</label></th>
+            <td>
+                <?php $selectd = fn ($v) => $v == $bank ? 'selectd' : ''; ?>
+                <select class="regular-text" name="bank">
+                    <option value='001' <?php echo $selectd('001') ?>> BANCO DO BRASIL - 001 </option>
+                    <option value='104' <?php echo $selectd('104') ?>> CAIXA ECONÔMICA FEDERAL - 104 </option>
+                    <option value='033' <?php echo $selectd('033') ?>> BCO SANTANDER S.A. - 033 </option>
+                    <option value='237' <?php echo $selectd('237') ?>> BCO BRADESCO S.A. - 237 </option>
+                    <option value='041' <?php echo $selectd('041') ?>> BCO DO ESTADO DO RS S.A. - 041 </option>
+                    <option value='748' <?php echo $selectd('748') ?>> BCO COOPERATIVO SICREDI S.A. - 748 </option>
+                    <option value='756' <?php echo $selectd('756') ?>> BCO SICOOB - 756 </option>
+                    <option value='341' <?php echo $selectd('341') ?>> BCO ITAÚ UNIBANCO - 341 </option>
+                    <option value='077' <?php echo $selectd('077') ?>> BCO INTER - 077 </option>
+                    <option value='756' <?php echo $selectd('756') ?>> BCO SICOOB - 756 </option>
+                    <option value='260' <?php echo $selectd('260') ?>> NUBANK - 260 </option>
+                    <option value='336' <?php echo $selectd('336') ?>> Banco C6 S.A. - 336 </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><label>Tipo de conta</label></th>
+            <td>
+                <?php $selectd_2 = fn ($v) => $v == $bankAccountType ? 'selectd' : ''; ?>
+                <select class="regular-text" name="bankAccountType">
+                    <option value='CONTA_CORRENTE' <?php echo $selectd_2('CONTA_CORRENTE') ?>> Corrente </option>
+                    <option value='CONTA_POUPANCA' <?php echo $selectd_2('CONTA_POUPANCA') ?>> Poupança </option>
+                </select>
+            </td>
+        </tr>
+
+    </table>
+
 <?php
 }
 add_action('user_new_form', 'custom_add_user_field');
@@ -117,7 +185,7 @@ function custom_registration_fields_validation($errors, $sanitized_user_login, $
 {
 
     $is_walletI = $_POST['custom_wallet_id'] ?? '';
-    if(strlen($is_walletI) < 30 ) {
+    if (strlen($is_walletI) < 30) {
 
         $campos_obrigatorios = [
             "cus_tipo_conta",
@@ -149,11 +217,17 @@ function custom_registration_fields_validation($errors, $sanitized_user_login, $
         $custom_zip_code = sanitize_text_field($_POST['custom_zip_code']);
         $custom_address = sanitize_text_field($_POST['custom_address']);
         $custom_address_number = sanitize_text_field($_POST['custom_address_number']);
-        $custom_bairro = sanitize_text_field($_POST['custom_bairro']) ;
-    
+        $custom_bairro = sanitize_text_field($_POST['custom_bairro']);
+
+        $account = sanitize_text_field($_POST['account']);
+        $accountDigit = sanitize_text_field($_POST['accountDigit']);
+        $accountName = sanitize_text_field($_POST['accountName']);
+        $agency = sanitize_text_field($_POST['agency']);
+        $bank = sanitize_text_field($_POST['bank']);
+        $bankAccountType = sanitize_text_field($_POST['bankAccountType']);
+
         $CPF_OR_CNPJ = $cus_tipo_conta == 'FISICA' ? $custom_CPF : $custom_CNPJ;
-        
-    
+
         $custom_wallet_id_res_asaas = register_wallet(
             $cus_tipo_conta,
             $custom_nascimento,
@@ -167,20 +241,25 @@ function custom_registration_fields_validation($errors, $sanitized_user_login, $
             $custom_address_number,
             '',
             $custom_bairro,
-            $custom_zip_code
+            $custom_zip_code,
+            $account,
+            $accountDigit,
+            $accountName,
+            $agency,
+            $bank,
+            $bankAccountType
         );
-    
-        if(!empty($custom_wallet_id_res_asaas["errors"] ) ) {
-            $errors->add('custom_wallet_id', __('<strong>Erro</strong>:' . $custom_wallet_id_res_asaas["errors"][0]['description'] ));
-        }  
-    
-        if( empty($custom_wallet_id_res_asaas["errors"]) ) {
-            $_POST['walletId'] = $custom_wallet_id_res_asaas['walletId'];
-            $_POST['custom_wallet_id'] = $_POST['walletId'] ;
-            $_POST['asaas_api_key'] = $custom_wallet_id_res_asaas['apiKey'];
+
+        if (!empty($custom_wallet_id_res_asaas["errors"])) {
+            $errors->add('custom_wallet_id', __('<strong>Erro</strong>:' . $custom_wallet_id_res_asaas["errors"][0]['description']));
         }
 
-    }else {
+        if (empty($custom_wallet_id_res_asaas["errors"])) {
+            $_POST['walletId'] = $custom_wallet_id_res_asaas['walletId'];
+            $_POST['custom_wallet_id'] = $_POST['walletId'];
+            $_POST['asaas_api_key'] = $custom_wallet_id_res_asaas['apiKey'];
+        }
+    } else {
         $_POST['walletId'] = $_POST['custom_wallet_id'];
     }
 
@@ -202,18 +281,18 @@ function custom_user_register($user_id)
     $custom_zip_code = sanitize_text_field($_POST['custom_zip_code']);
     $custom_address = sanitize_text_field($_POST['custom_address']);
     $custom_address_number = sanitize_text_field($_POST['custom_address_number']);
-    $custom_bairro = sanitize_text_field($_POST['custom_bairro']) ;
+    $custom_bairro = sanitize_text_field($_POST['custom_bairro']);
 
     if (isset($_POST['custom_wallet_id'])) {
         add_user_meta($user_id, 'custom_wallet_id', $_POST['walletId']);
     }
-    
+
     if (isset($_POST['asaas_api_key'])) {
         add_user_meta($user_id, 'asaas_api_key', $_POST['asaas_api_key']);
     }
 
-    if(isset($_POST['asaas_api_key']) && isset($_POST['custom_wallet_id'])) {
-        enviar_api($user_id, sanitize_text_field($_POST['custom_wallet_id']), sanitize_text_field($_POST['asaas_api_key']) );
+    if (isset($_POST['asaas_api_key']) && isset($_POST['custom_wallet_id'])) {
+        enviar_api($user_id, sanitize_text_field($_POST['custom_wallet_id']), sanitize_text_field($_POST['asaas_api_key']));
     }
 
     $loop = [
@@ -229,18 +308,24 @@ function custom_user_register($user_id)
         'custom_address',
         'custom_address_number',
         'custom_bairro',
+        'account',
+        'accountDigit',
+        'accountName',
+        'agency',
+        'bank',
+        'bankAccountType',
     ];
-    foreach($loop as $el) {
+    foreach ($loop as $el) {
         if (isset($_POST[$el])) {
-            add_user_meta($user_id, $el, $$el );
+            add_user_meta($user_id, $el, $$el);
         }
     }
-
 }
 add_action('user_register', 'custom_user_register');
 
 function custom_user_update($user_id)
 {
+    
     if (isset($_POST['custom_wallet_id'])) {
         update_user_meta($user_id, 'custom_wallet_id', sanitize_text_field($_POST['custom_wallet_id']));
     }
@@ -249,8 +334,8 @@ function custom_user_update($user_id)
         add_user_meta($user_id, 'asaas_api_key', sanitize_text_field($_POST['asaas_api_key']));
     }
 
-    if(isset($_POST['asaas_api_key']) && isset($_POST['custom_wallet_id'])) {
-        enviar_api($user_id, sanitize_text_field($_POST['custom_wallet_id']), sanitize_text_field($_POST['asaas_api_key']) );
+    if (isset($_POST['asaas_api_key']) && isset($_POST['custom_wallet_id'])) {
+        enviar_api($user_id, sanitize_text_field($_POST['custom_wallet_id']), sanitize_text_field($_POST['asaas_api_key']));
     }
 
     $loop = [
@@ -266,11 +351,19 @@ function custom_user_update($user_id)
         'custom_address',
         'custom_address_number',
         'custom_bairro',
+        'account',
+        'accountDigit',
+        'accountName',
+        'agency',
+        'bank',
+        'bankAccountType',
     ];
-    foreach($loop as $el) {
+
+    foreach ($loop as $el) {
         if (isset($_POST[$el])) {
             update_user_meta($user_id, $el, sanitize_text_field($_POST[$el]));
         }
     }
+
 }
 add_action('profile_update', 'custom_user_update');

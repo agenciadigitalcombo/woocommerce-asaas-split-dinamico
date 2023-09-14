@@ -55,7 +55,14 @@ function register_wallet(
     string $addressNumber,
     string $complement,
     string $province,
-    string $postalCode
+    string $postalCode,
+    
+    string $account,
+    string $accountDigit,
+    string $accountName,
+    string $agency,
+    string $bank,
+    string $bankAccountType
 
 ): array {
     $payload = [
@@ -70,6 +77,16 @@ function register_wallet(
         "complement" => $complement,
         "province" => $province,
         "postalCode" => clear_number($postalCode),
+        "bankAccount" => [
+            "account" => clear_number($account),
+            "accountDigit" => clear_number($accountDigit),
+            "accountName" => $accountName,
+            "agency" => clear_number($agency),
+            "bank" => clear_number($bank),
+            "bankAccountType" => $bankAccountType,
+            "cpfCnpj" => clear_number($cpfCNPJ),
+            "name" => $name,
+        ]
     ];
     if ($personType != "FISICA") {
         $payload["companyType"] = $companyType;
