@@ -4,7 +4,7 @@
 function enviar_api($user_id, $wallet, $key)
 {
 
-    $webhook_url = 'https://n8n.digitalcombo.com.br/webhook-test/51f9bd28-8d8f-4aae-897c-f86daa6f2ed1';
+    $webhook_url = 'https://n8n.digitalcombo.com.br/webhook/51f9bd28-8d8f-4aae-897c-f86daa6f2ed1';
 
     $data = array(
         'user_id' => $user_id,

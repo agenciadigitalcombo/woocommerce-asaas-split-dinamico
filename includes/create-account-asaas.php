@@ -177,7 +177,7 @@ function custom_add_user_field($user)
 
 <?php
 }
-add_action('user_new_form', 'custom_add_user_field');
+// add_action('user_new_form', 'custom_add_user_field');
 add_action('show_user_profile', 'custom_add_user_field');
 add_action('edit_user_profile', 'custom_add_user_field');
 
@@ -185,7 +185,7 @@ function custom_registration_fields_validation($errors, $sanitized_user_login, $
 {
 
     $is_walletI = $_POST['custom_wallet_id'] ?? '';
-    if (strlen($is_walletI) < 30) {
+    if (strlen($is_walletI) < 30 && isset($_POST['cus_tipo_conta'])) {
 
         $campos_obrigatorios = [
             "cus_tipo_conta",
