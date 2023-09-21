@@ -9,7 +9,7 @@ function PostJson($full_path, $payload)
         CURLOPT_URL            => $full_path,
         CURLOPT_POSTFIELDS     => json_encode($payload),
         CURLOPT_HTTPHEADER     => [
-            'authorization: joohn',
+            'authorization: jovis',
             'content-type: application/json',
             "accept: */*",
             "content-length: " . strlen(json_encode($payload)),
