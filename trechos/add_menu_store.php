@@ -5,7 +5,7 @@ function ws_get_wcfm_menus_b($wcfm_menus)
 {
 	$wcfm_menus['ws-contract-1'] = array(
 		'label' => 'carteira',
-		'url' => 'http://carteira.digitalcombo.com.br/public/',
+		'url' => 'https://carteira.pedipag.com.br/public',
 		'icon' => 'dashicons-money'
 	);
 	return $wcfm_menus;
