@@ -31,7 +31,6 @@ function post_asaas($path, $payload, $get_endpoint, $token = '')
     $con = curl_init();
     curl_setopt_array($con, $defaults);
     $ex = curl_exec($con);
-    die($full_path);
     $info = curl_getinfo($con);
     curl_close($con);
     return json_decode($ex, true);
