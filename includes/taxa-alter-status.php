@@ -24,42 +24,45 @@ function minha_funcao_de_acao_quando_processando($order_id)
     $saldo_baixo = 35;
     $saldo_print = number_format($saldo, 2, '.', ',');
 
+    if( $taxa > 0 ) {
 
-    if ($saldo <= $saldo_baixo) {
-        SendWhats($custom_phone, "
-PEDIBANK
-Saldo Baixo ⛽👀        
-Olá {$custom_nome}, seu saldo no Pedibank é de R$ {$saldo_print}, não fique sem entregas, faça uma recarga agora mesmo!
-        ");
-
-        SendWhats($phone_loja, "
-PEDIBANK
-Saldo Baixo ⛽👀
-Loja {$custom_nome}, saldo baixo R$ {$saldo_print}.
-        ");
+        if ($saldo <= $saldo_baixo) {
+            SendWhats($custom_phone, "
+    PEDIBANK
+    Saldo Baixo ⛽👀        
+    Olá {$custom_nome}, seu saldo no Pedibank é de R$ {$saldo_print}, não fique sem entregas, faça uma recarga agora mesmo!
+            ");
+    
+            SendWhats($phone_loja, "
+    PEDIBANK
+    Saldo Baixo ⛽👀
+    Loja {$custom_nome}, saldo baixo R$ {$saldo_print}.
+            ");
+        }
+    
+        if ($saldo < $taxa) {
+            SendWhats($custom_phone, "
+    PEDIBANK 
+    Sem Saldo🥴💰
+    Olá {$custom_nome}, você está Sem Saldo suficiente no Pedibank. Para novas entregas, recarregue agora mesmo e nao perca vendas.
+            ");
+            SendWhats($phone_loja, "
+    PEDIBANK 
+    Sem Saldo🥴💰
+    Loja {$custom_nome}, está sem Saldo
+            ");
+        }
+    
+        if ($saldo >= $taxa) {
+            $res = TransfeAsaas(
+                $taxa,
+                $vendedor_api_key,
+                $loja_wallet_id
+            );
+        }
+        
     }
 
-    if ($saldo < $taxa) {
-        SendWhats($custom_phone, "
-PEDIBANK 
-Sem Saldo🥴💰
-Olá {$custom_nome}, você está Sem Saldo suficiente no Pedibank. Para novas entregas, recarregue agora mesmo e nao perca vendas.
-        ");
-        SendWhats($phone_loja, "
-PEDIBANK 
-Sem Saldo🥴💰
-Loja {$custom_nome}, está sem Saldo
-        ");
-    }
-
-    if ($saldo >= $taxa) {
-        $res = TransfeAsaas(
-            $taxa,
-            $vendedor_api_key,
-            $loja_wallet_id
-        );
-        var_dump($res);
-    }
 }
 
 add_action('woocommerce_order_status_processing', 'minha_funcao_de_acao_quando_processando', 10, 1);
