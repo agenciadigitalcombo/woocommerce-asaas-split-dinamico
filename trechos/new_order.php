@@ -23,7 +23,7 @@ function enviar_fatura_para_webhook($order_id)
     $vendor_email = get_user_meta(intval($vendedor_id), 'custom_mail', true);
 
     // URL do webhook de destino
-    $webhook_url = 'https://n8n.digitalcombo.com.br/webhook-test/310ac435-f90f-4883-9ad6-121e1289c901';
+    $webhook_url = 'https://n8n.digitalcombo.com.br/webhook/310ac435-f90f-4883-9ad6-121e1289c901';
 
     $product_names = [];
     foreach ($order->get_items() as $item) {
