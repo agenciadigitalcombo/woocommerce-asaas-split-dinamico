@@ -24,7 +24,7 @@ function minha_funcao_de_acao_quando_processando($order_id)
     $saldo_baixo = 35;
     $saldo_print = number_format($saldo, 2, '.', ',');
 
-    if( $taxa > 0 ) {
+    if( intval($taxa) > 0 ) {
 
         if ($saldo <= $saldo_baixo) {
             SendWhats($custom_phone, "
@@ -60,7 +60,7 @@ function minha_funcao_de_acao_quando_processando($order_id)
                 $loja_wallet_id
             );
         }
-        
+
     }
 
 }
