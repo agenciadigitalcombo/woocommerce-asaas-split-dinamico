@@ -7,10 +7,8 @@ function makerSplit($order_id)
     $wc_order = $order->get_items();
     $id_prod = array_values($wc_order)[0]->get_product_id();
 
-    $vendedor_id = get_post_meta($id_prod, '_wcfm_product_author', true);
+    $vendedor_id = wcfm_get_vendor_id_by_post($id_prod);
     $get_payment_method = $order->get_payment_method();
-
-
 
     $split_prod = [];
 
