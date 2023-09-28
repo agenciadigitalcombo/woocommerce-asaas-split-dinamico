@@ -56,7 +56,7 @@ function register_wallet(
     string $complement,
     string $province,
     string $postalCode,
-    
+
     string $account,
     string $accountDigit,
     string $accountName,
@@ -77,16 +77,16 @@ function register_wallet(
         "complement" => $complement,
         "province" => $province,
         "postalCode" => clear_number($postalCode),
-        "bankAccount" => [
-            "account" => clear_number($account),
-            "accountDigit" => clear_number($accountDigit),
-            "accountName" => $accountName,
-            "agency" => clear_number($agency),
-            "bank" => clear_number($bank),
-            "bankAccountType" => $bankAccountType,
-            "cpfCnpj" => clear_number($cpfCNPJ),
-            "name" => $name,
-        ]
+        // "bankAccount" => [
+        //     "account" => clear_number($account),
+        //     "accountDigit" => clear_number($accountDigit),
+        //     "accountName" => $accountName,
+        //     "agency" => clear_number($agency),
+        //     "bank" => clear_number($bank),
+        //     "bankAccountType" => $bankAccountType,
+        //     "cpfCnpj" => clear_number($cpfCNPJ),
+        //     "name" => $name,
+        // ]
     ];
     if ($personType != "FISICA") {
         $payload["companyType"] = $companyType;
@@ -147,4 +147,37 @@ function TransfeAsaas(
     ];
     $token = $vendedor_wallet_id;
     return post_asaas($path, $payload, $get_endpoint, $token);
+}
+
+function MakerBank(
+    $bankCode,
+    $agency,
+    $account,
+    $accountDigit,
+    $bankAccountType,
+    $name,
+    $cpfCnpj,
+    $responsiblePhone,
+    $responsibleEmail,
+    $token
+) {
+	global $_debug;
+    $get_endpoint = get_endpoint();
+    $path = "/bankAccounts";
+    $payload = [
+        "accountName" => "Conta Bancária",
+        "thirdPartyAccount" => true,
+        "bankCode" => clear_number($bankCode),
+        "agency" => clear_number($agency),
+        "account" => clear_number($account),
+        "accountDigit" => clear_number($accountDigit),
+        "bankAccountType" => $bankAccountType,
+        "name" => $name,
+        "cpfCnpj" => clear_number($cpfCnpj),
+        "responsiblePhone" => clear_number($responsiblePhone),
+        "responsibleEmail" => $responsibleEmail,
+        "mainAccount" => true
+    ];
+	$res = post_asaas($path, $payload, $get_endpoint, $token);
+	return $res ;
 }

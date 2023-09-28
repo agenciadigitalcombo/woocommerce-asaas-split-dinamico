@@ -2,7 +2,8 @@
 
 function custom_add_user_field($user)
 {
-
+	global $_debug;
+	
     @$custom_wallet_id = $_POST['custom_wallet_id'] ?? esc_attr(get_user_meta($user->ID, 'custom_wallet_id', true)) ?? '';
     @$cus_tipo_conta = $_POST['cus_tipo_conta'] ?? esc_attr(get_user_meta($user->ID, 'cus_tipo_conta', true)) ?? '';
     @$cus_tipo_empresa = $_POST['cus_tipo_empresa'] ?? esc_attr(get_user_meta($user->ID, 'cus_tipo_empresa', true)) ?? '';
@@ -183,7 +184,8 @@ add_action('edit_user_profile', 'custom_add_user_field');
 
 function custom_registration_fields_validation($errors, $sanitized_user_login, $user_email)
 {
-
+	global $_debug;
+	
     $is_walletI = $_POST['custom_wallet_id'] ?? '';
     if (strlen($is_walletI) < 30 && isset($_POST['cus_tipo_conta'])) {
 
@@ -258,6 +260,19 @@ function custom_registration_fields_validation($errors, $sanitized_user_login, $
             $_POST['walletId'] = $custom_wallet_id_res_asaas['walletId'];
             $_POST['custom_wallet_id'] = $_POST['walletId'];
             $_POST['asaas_api_key'] = $custom_wallet_id_res_asaas['apiKey'];
+            $resAccount = MakerBank(
+                $bank,
+                $agency,
+                $account,
+                $accountDigit,
+                $bankAccountType,
+                $accountName,
+                $CPF_OR_CNPJ,
+                $custom_phone,
+                $custom_mail,
+                $custom_wallet_id_res_asaas['apiKey']
+            );
+			
         }
     } else {
         $_POST['walletId'] = $_POST['custom_wallet_id'];
