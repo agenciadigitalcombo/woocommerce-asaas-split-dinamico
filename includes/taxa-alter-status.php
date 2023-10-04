@@ -13,7 +13,7 @@ function minha_funcao_de_acao_quando_processando($order_id)
         $custom_phone = get_user_meta(intval($vendedor_id), 'custom_phone', true);
         $custom_nome = get_user_meta(intval($vendedor_id), 'custom_nome', true);
         $phone_loja = "31993063616";
-        $loja_wallet_id = get_user_meta(1, 'custom_wallet_id', true);
+        $loja_wallet_id = get_user_meta(10, 'custom_wallet_id', true);
         $saldo = BalanceAsaas($vendedor_api_key);
         $saldo_baixo = 35;
         $saldo_print = number_format($saldo, 2, '.', ',');
