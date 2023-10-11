@@ -95,7 +95,7 @@ function register_wallet(
     }
     $token = get_token();
     $get_endpoint = get_endpoint();
-    $token = 'TOKEN_CHUMBADO';
+    $token = get_option('TOKEN_ASAAS_CONTA_PAI');
     $resAsa = post_asaas('/accounts', $payload, $get_endpoint, $token);
     return $resAsa;
 }
