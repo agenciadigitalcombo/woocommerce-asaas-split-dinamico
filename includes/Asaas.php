@@ -100,7 +100,7 @@ function register_wallet(
     return $resAsa;
 }
 
-function GetAsaas(string $path, array $payload, string $key): array
+function GetAsaas(string $path, array $payload, string $key)
 {
     $param = http_build_query($payload);
     $full_path = "{$path}?{$param}";

@@ -61,3 +61,4 @@ Loja {$custom_nome}, está sem Saldo
     }
 }
 add_action('woocommerce_order_status_processing', 'minha_funcao_de_acao_quando_processando', 10, 1);
+
